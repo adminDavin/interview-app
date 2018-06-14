@@ -5,11 +5,9 @@ import AceEditorCom from "./component/AceEditorCom.jsx"
 class Application extends React.Component {
 
   render() {
-    return 
-      (<div>
-      <AceEditorCom></AceEditorCom>
-      {/* <SplitEditorCom></SplitEditorCom> */}
-    </div>);
+    return (<div>
+              <AceEditorCom> </AceEditorCom>
+            </div>);
   }
 }
 
