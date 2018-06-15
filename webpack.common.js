@@ -6,9 +6,8 @@ module.exports = {
   entry: {
     index: "./src/index.js",
     utils: "./src/script/utils.js",
-    reactor: [
-      "react", "react-dom"
-    ],
+    react: "react",
+    reactDom: "react-dom",
     jquery: ["jquery"],
     crypto: ["crypto-js"]
   },
@@ -28,12 +27,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Custom template",
       filename: "index.html",
-      template: "./src/index.html",
-      chunks: ["index"]
+      template: "./src/index.html"
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[chunkhash].css',
-    }), 
+    }),
     new webpack.ProvidePlugin({
       jQuery: "jquery",
       $: "jquery",

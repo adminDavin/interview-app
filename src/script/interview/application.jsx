@@ -1,13 +1,15 @@
 import React from 'react';
-
-import AceEditorCom from "./component/AceEditorCom.jsx"
-// import SplitEditorCom from "./component/SplitEditorCom.jsx"
+import CommonHead from "./component/CommonHead.jsx";
+import Editor from "./module/Editor.jsx";
 class Application extends React.Component {
 
   render() {
-    return (<div>
-              <AceEditorCom> </AceEditorCom>
-            </div>);
+    return (
+      <div className="container-fluid">
+        <CommonHead className="container"></CommonHead>
+        <Editor className="row container-fluid"></Editor>
+      </div>
+    );
   }
 }
 

@@ -1,9 +1,7 @@
-@import "~bootstrap/scss/bootstrap";   
+@import "~bootstrap/scss/bootstrap";
 //import font awesome
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
-
-
 @each $color,
 $value in $theme-colors {
   .alert-#{$color} {
@@ -28,13 +26,17 @@ $colors: ( "blue": $blue, "indigo": $indigo, "purple": $purple, "pink": $pink, "
 }
 
 body {
-  background-color: #c0c0c0;
-  margin-right: -15px;
-  margin-left: -15px;
-  margin-bottom: -15px;
+  background-color: whitesmoke;
 }
 
 .hello {
   color: red;
+}
 
+.m-t-20 {
+  margin-top: 20px;
+}
+
+.m-t-10 {
+  margin-top: 10px;
 }
