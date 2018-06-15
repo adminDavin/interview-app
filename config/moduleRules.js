@@ -2,14 +2,13 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const moduleRules = {
-  rules: [
-    {
+  rules: [{
       test: /\.jsx|js?$/,
       exclude: /node_modules/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015', 'react', 'stage-0']
-      }
+      use: [{
+        loader: 'babel-loader',
+
+      }]
     },
     {
       test: /\.(png|svg|jpg|gif)$/,
@@ -24,21 +23,19 @@ const moduleRules = {
     },
     {
       test: /\.(woff|woff2|eot|ttf|otf)$/,
-      use: [
-        {
-          loader: 'file-loader',
-          options: { // 这里的options选项参数可以定义多大的图片转换为base64
-            limit: 1000, // 表示小于1kb的图片转为base64,大于1kb的是路径
-            outputPath: 'font' //定义输出的图片文件夹
-          }
+      use: [{
+        loader: 'file-loader',
+        options: { // 这里的options选项参数可以定义多大的图片转换为base64
+          limit: 1000, // 表示小于1kb的图片转为base64,大于1kb的是路径
+          outputPath: 'font' //定义输出的图片文件夹
         }
-      ]
+      }]
     },
     {
       test: /\.(sass|scss|css)$/,
       use: [{
-        loader: 'style-loader'
-      },
+          loader: 'style-loader'
+        },
         MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader'
@@ -47,7 +44,8 @@ const moduleRules = {
           options: {
             sourceMap: true
           }
-        }]
+        }
+      ]
     }
   ]
 };

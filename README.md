@@ -6,7 +6,7 @@ email:davinzhang@outlook.com
 运行方式：
   准备：
       npm install -g webpack-cli wepack webpack-dev-server
-      npm install 
+      npm install -D babel-preset-env babel-loader
   
   开发模式：npm run start
   打包模式：npm run build
