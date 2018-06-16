@@ -2,6 +2,7 @@
    "presets": [
      "env",
      "react",
+     "rsuite",
      "stage-2"
    ]
  }

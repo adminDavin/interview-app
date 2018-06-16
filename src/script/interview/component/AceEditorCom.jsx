@@ -58,14 +58,18 @@ class AceEditorCom extends React.Component {
         console.log('change', newValue);
     }
     handleThemeChange = (selectedOption) => {
-        this.setState({selectedtheme: selectedOption});
+        this.setState({
+            selectedtheme: selectedOption
+        });
         if (selectedOption) {
             console.log(`Selected: ${selectedOption.label}`);
         }
     }
 
     handleModeChange = (selectedOption) => {
-        this.setState({selectedmode: selectedOption});
+        this.setState({
+            selectedmode: selectedOption
+        });
         if (selectedOption) {
             console.log(`Selected: ${selectedOption.label}`);
         }
@@ -73,49 +77,35 @@ class AceEditorCom extends React.Component {
 
     render() {
         return (
-            <div className={this.props.className}>
-                <div className="text-primary">
-                    <p className="m-t-20">
-                        <strong>
-                            Please write Question 1's answer code at flow.
-                        </strong>
-                    </p>
+            <div className={ this.props.className }>
+              <div className="text-primary">
+                <p className="m-t-20">
+                  <strong>
+                                                    Please write Question 1's answer code at flow.
+                                                </strong>
+                </p>
+              </div>
+              <div className="row">
+                <AceEditor className="col-9" mode="java" theme="tomorrow_night" onChange={ this.onChange } name="UNIQUE_ID_OF_DIV" editorProps={ {
+ $blockScrolling: true
+ } } />
+                <div className="col bg-light text-dark list-inline">
+                  <p className="m-t-20">
+                    <strong>
+                                                        theme
+                                                    </strong>
+                  </p>
+                  <Select name="form-field-name" value={ this.state.selectedtheme } onChange={ this.handleThemeChange } options={ theme } />
+                  <p className="m-t-20">
+                    <strong>
+                                                        mode
+                                                    </strong>
+                  </p>
+                  <Select name="form-field-name" value={ this.state.selectedmode } onChange={ this.handleModeChange } options={ mode } />
                 </div>
-                <div className="row">
-                    <AceEditor
-                        className="col-9"
-                        mode="java"
-                        theme="tomorrow_night"
-                        onChange={this.onChange}
-                        name="UNIQUE_ID_OF_DIV"
-                        editorProps={{
-                        $blockScrolling: true
-                    }}/>
-                    <div className="col bg-light text-dark list-inline">
-                        <p className="m-t-20">
-                            <strong>
-                                theme
-                            </strong>
-                        </p>
-                        <Select
-                            name="form-field-name"
-                            value={this.state.selectedtheme}
-                            onChange={this.handleThemeChange}
-                            options={theme}/>
-                        <p className="m-t-20">
-                            <strong>
-                                mode
-                            </strong>
-                        </p>
-                        <Select
-                            name="form-field-name"
-                            value={this.state.selectedmode}
-                            onChange={this.handleModeChange}
-                            options={mode}/>
-                    </div>
-                </div>
+              </div>
             </div>
-        );
+            );
     }
 }
 

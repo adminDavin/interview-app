@@ -25,6 +25,13 @@ $colors: ( "blue": $blue, "indigo": $indigo, "purple": $purple, "pink": $pink, "
   }
 }
 
+.rs-modal-backdrop.in{
+  opacity: .3!important
+}
+
+.fade.in{
+  opacity: 1!important
+}
 body {
   background-color: whitesmoke;
 }
@@ -39,4 +46,22 @@ body {
 
 .m-t-10 {
   margin-top: 10px;
+}
+.m-t-7 {
+  margin-top: 7px;
+}
+ 
+.m-lb-5{
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+.m-b-5{
+  margin-bottom: 10px;
+}
+
+.m-l-20{
+  margin-left: 20px; 
+}
+.m-r-10{
+  margin-right: 10px; 
 }

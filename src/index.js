@@ -5,7 +5,7 @@ import Application from "./script/interview/application.jsx";
 import _ from 'lodash';
 import './style/interview.scss';
 import Icon from './style/icon.png';
-
+// require('bootstrap-loader');
 function component() {
   let element = document.createElement('div');
   element.innerHTML = _.join(['Hello', 'demo'], ' ');
