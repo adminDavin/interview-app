@@ -10,7 +10,9 @@ module.exports = {
     reactDom: "react-dom",
     jquery: ["jquery"],
     crypto: ["crypto-js"],
-  // 'bootstrap': 'bootstrap-loader'
+    bootstrap: 'bootstrap-loader',
+    rsuite: 'rsuite',
+    echarts: 'echarts'
   },
   output: {
     path: __dirname + "/dist",

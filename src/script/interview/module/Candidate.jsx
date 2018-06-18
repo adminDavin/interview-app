@@ -1,15 +1,21 @@
 import React from 'react';
 import { Icon, Button } from 'rsuite';
 import { Nav, Navbar, Dropdown } from 'rsuite';
-import PDF from 'react-pdf-js';
-class Candidate extends React.Component {
+import MyPdfViewer from './../component/MyPdfViewer.jsx';
+import BaseModule from './../base-component/BaseModule';
+import BaseNavContent from './../base-component/BaseNavContent.jsx';
+
+class Candidate extends BaseModule {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      router: 'demond-massage1'
+    };
   }
   render() {
     return (
-      <div className={ this.props.className }>
-        <div style={ { padding: 15 } }>
+      <div style={ { padding: 15 } }>
+        <div className={ this.props.className }>
           <div className="row alert alert-primary">
             <div className="col">
               <Icon icon='avatar' size="3x" />
@@ -24,27 +30,30 @@ class Candidate extends React.Component {
           <div className="row">
             <div className="col-3 card">
               <img style={ { padding: 30 } } className="card-img-top" src={ require("./../../../style/user.jpg") } alt="enterprise" />
-              <dl className="dl-horizontal">
-                <dt>应聘者</dt>
-                <dd>张大伟</dd>
-                <dt>年龄</dt>
-                <dd>30</dd>
-                <dt>工作经验</dt>
-                <dd>5年</dd>
-                <dt>联系电话</dt>
-                <dd>18758268513</dd>
-              </dl>
+              <hr />
+              <div className="card-body">
+                <dl className="row dl-horizontal">
+                  <dt className="col-4">应聘者</dt>
+                  <dd className="col-6">张大伟</dd>
+                  <dt className="col-4">年龄</dt>
+                  <dd className="col-8">30</dd>
+                  <dt className="col-4">工作经验</dt>
+                  <dd className="col-8">5年</dd>
+                  <dt className="col-4">联系电话</dt>
+                  <dd className="col-8">18758268513</dd>
+                  <dt className="col-4">邮箱地址</dt>
+                  <dd className="col-8">18758268513@162.com</dd>
+                  <dt className="col-4">应聘职位</dt>
+                  <dd className="col-8">研发工程师</dd>
+                </dl>
+              </div>
             </div>
             <div className="col alert alert-light">
-              <Nav className="">
-                <Nav.Item icon={ <Icon icon="github-alt" /> }>岗位信息</Nav.Item>
-                <Nav.Item icon={ <Icon icon="github-alt" /> }>个人简历</Nav.Item>
-                <Nav.Item icon={ <Icon icon="circle" /> }>Coding测评</Nav.Item>
-                <Nav.Item icon={ <Icon icon="circle" /> }>其他招聘岗位信息</Nav.Item>
+              <Nav appearance="subtle">
+                { this.getRsuiteNavs(NAVLIST) }
               </Nav>
-              <Icon icon="circle" />
-              <Button appearance="primary">更新简历</Button>
               <MyPdfViewer></MyPdfViewer>
+              <NavContent></NavContent>
             </div>
           </div>
         </div>
@@ -53,58 +62,52 @@ class Candidate extends React.Component {
   }
 }
 
-class MyPdfViewer extends React.Component {
-  state = {};
-
-  onDocumentComplete = (pages) => {
-    this.setState({
-      page: 1,
-      pages
-    });
-  }
-
-  handlePrevious = () => {
-    this.setState({
-      page: this.state.page - 1
-    });
-  }
-
-  handleNext = () => {
-    this.setState({
-      page: this.state.page + 1
-    });
-  }
-
-  renderPagination = (page, pages) => {
-    let previousButton = <li className="previous" onClick={ this.handlePrevious }><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
-    if (page === 1) {
-      previousButton = <li className="previous disabled"><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
+class NavContent extends BaseNavContent {
+  updateRender(props, state) {
+    let router = eleFindInArray(NAVLIST, 'name', props.router);
+    if (router) {
+      if (router == 'DemondMassage') {
+        this.updateElement(require("./../component/DemondMassage.jsx").default);
+      } else if (router == 'CandidateMessage') {
+        this.updateElement(require("./../component/CandidateMessage.jsx").default);
+      } else if (router == 'CandidateResume') {
+        this.updateElement(require("./../component/CandidateResume.jsx").default);
+      } else if (router == 'CodingTesting') {
+        this.updateElement(require("./../component/CodingTesting.jsx").default);
+      }
     }
-    let nextButton = <li className="next" onClick={ this.handleNext }><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
-    if (page === pages) {
-      nextButton = <li className="next disabled"><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
-    }
-    return (
-      <nav>
-        <ul className="pager">
-          { previousButton }
-          { nextButton }
-        </ul>
-      </nav>
-      );
   }
+}
 
-  render() {
-    let pagination = null;
-    if (this.state.pages) {
-      pagination = this.renderPagination(this.state.page, this.state.pages);
+const NAVLIST = [{
+  name: 'demond-massage',
+  title: '岗位信息',
+  value: 'DemondMassage',
+  icon: 'github-alt'
+}, {
+  name: 'candidate-massage',
+  title: '候选人信息',
+  value: 'CandidateMessage',
+  icon: 'github-alt'
+}, {
+  name: 'candidate-resume',
+  title: '候选人简历',
+  value: 'CandidateResume',
+  icon: 'github-alt'
+}, {
+  name: 'coding-testing',
+  title: 'Coding测评',
+  value: 'CodingTesting',
+  icon: 'circle'
+}];
+
+
+function eleFindInArray(li, name, value) {
+  for (let ele of li) {
+    let result = ele[name] == value ? ele['value'] : null;
+    if (result) {
+      return result;
     }
-    return (
-      <div>
-        <PDF file={ require("./../../../style/1127-运维-罗时顺.pdf") } onDocumentComplete={ this.onDocumentComplete } page={ this.state.page } />
-        { pagination }
-      </div>
-    )
   }
 }
 export default Candidate;

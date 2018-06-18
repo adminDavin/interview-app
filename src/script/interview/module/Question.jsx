@@ -49,7 +49,7 @@ const dataList = [
   }
 ];
 
-class ManageQuestion extends React.Component {
+class Question extends React.Component {
   constructor(props, context) {
     super(props, context);
   }
@@ -177,4 +177,4 @@ class BasicDemo extends React.Component {
       );
   }
 }
-export default ManageQuestion;
+export default Question;
