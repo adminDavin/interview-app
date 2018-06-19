@@ -4,15 +4,7 @@ const moduleRulesLoader = require("./config/moduleRules.js");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: {
-    index: "./src/index.js",
-    utils: "./src/script/utils.js",
-    react: "react",
-    reactDom: "react-dom",
-    jquery: ["jquery"],
-    crypto: ["crypto-js"],
-    bootstrap: 'bootstrap-loader',
-    rsuite: 'rsuite',
-    echarts: 'echarts'
+    index: "./src/index.js"
   },
   output: {
     path: __dirname + "/dist",
@@ -25,6 +17,29 @@ module.exports = {
       ".js", ".json", ".jsx"
     ],
     modules: ["node_modules"]
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          name: "commons",
+          chunks: "initial",
+          minChunks: 2
+        },
+        vendors: {
+          test: /node_modules/,
+          chunks: "all",
+          priority: -10,
+          minChunks: 1
+        },
+        default: {
+          minChunks: 1,
+          chunks: "all",
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -40,7 +55,6 @@ module.exports = {
       jQuery: "jquery",
       "window.jQuery": "jquery",
       Tether: "tether",
-      "window.Tether": "tether",
       Popper: ['popper.js', 'default'],
       Alert: "exports-loader?Alert!bootstrap/js/dist/alert",
       Button: "exports-loader?Button!bootstrap/js/dist/button",

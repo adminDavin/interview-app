@@ -9,22 +9,22 @@ module.exports = merge(common, {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new webpack
-      .optimize
-      .ModuleConcatenationPlugin(),
+    .optimize
+    .ModuleConcatenationPlugin(),
   ],
   // devtool: "cheap-module-eval-source-map", //开发模式
   // devtool: "cheap-module-source-map", //生产模式
   devServer: {
     // 配置服务与热更新
-    contentBase: path.resolve(__dirname, "dist"), // 监听哪个目录下启动热更新
     host: "localhost", // 服务地址 192.168.0.106本地
     compress: true, // 服务器端的压缩，开启
     port: "3000", // 端口号
+    publicPath: '/dist/',
     proxy: {
       "/admin": {
         target: "http://localhost:8080/words-admin/",
         secure: false
-      // pathRewrite: { "^/api": "" }
+        // pathRewrite: { "^/api": "" }
       },
       "/pdf-store": {
         target: "http://localhost:8080/words-admin/admin/downloadFile",

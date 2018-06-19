@@ -3,13 +3,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const moduleRules = {
   rules: [{
-    test: /\.jsx|js?$/,
-    exclude: /node_modules/,
-    use: [{
-      loader: 'babel-loader',
+      test: /\.jsx|js?$/,
+      exclude: /node_modules/,
+      use: [{
+        loader: 'babel-loader',
 
-    }]
-  },
+      }]
+    },
     {
       test: /\.(png|svg|jpg|gif)$/,
       use: [{
@@ -32,10 +32,10 @@ const moduleRules = {
       }]
     },
     {
-      test: /\.(sass|scss|css)$/,
+      test: /\.(sass|css)$/,
       use: [{
-        loader: 'style-loader'
-      },
+          loader: 'style-loader'
+        },
         MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader'
@@ -46,6 +46,25 @@ const moduleRules = {
           }
         }
       ]
+    }, {
+      test: /\.(scss)$/,
+      use: [{
+        loader: 'style-loader', // inject CSS to page
+      }, {
+        loader: 'css-loader', // translates CSS into CommonJS modules
+      }, {
+        loader: 'postcss-loader', // Run post css actions
+        options: {
+          plugins: function () { // post css plugins, can be exported to postcss.config.js
+            return [
+              require('precss'),
+              require('autoprefixer')
+            ];
+          }
+        }
+      }, {
+        loader: 'sass-loader' // compiles Sass to CSS
+      }]
     }, {
       test: /\.(pdf)$/,
       use: [{
