@@ -5,5 +5,10 @@
      "rsuite",
      "stage-2"
    ],
-   "plugins": ["dynamic-import-webpack"]
+   "plugins": [
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
+  ]
  }

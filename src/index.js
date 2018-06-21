@@ -10,6 +10,6 @@ async function getComponent() {
 }
 
 getComponent().then(component => {
-  ReactDOM.render( < Application / > , element);
+  ReactDOM.render( < Application / > , component);
   document.body.appendChild(component);
 });
