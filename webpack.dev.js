@@ -7,10 +7,7 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new webpack
-    .optimize
-    .ModuleConcatenationPlugin(),
+    new CleanWebpackPlugin(['dist'])
   ],
   // devtool: "cheap-module-eval-source-map", //开发模式
   // devtool: "cheap-module-source-map", //生产模式
@@ -18,8 +15,7 @@ module.exports = merge(common, {
     // 配置服务与热更新
     host: "localhost", // 服务地址 192.168.0.106本地
     compress: true, // 服务器端的压缩，开启
-    port: "3000", // 端口号
-    publicPath: '/dist/',
+    port: "3000", // 端口号 
     proxy: {
       "/admin": {
         target: "http://localhost:8080/words-admin/",

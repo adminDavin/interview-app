@@ -1,15 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Application from "./script/interview/application.jsx";
-
 import './style/interview.scss';
-import 'bootstrap';
+import ( /* webpackChunkName: "bootstrap" */
+  'bootstrap');
 
-async function getComponent() {
-  return document.createElement('div');
-}
-
-getComponent().then(component => {
-  ReactDOM.render( < Application / > , component);
-  document.body.appendChild(component);
+import ('./script/main').then(component => {
+  let getComponent = component.default;
+  let ele = getComponent();
+  document
+    .body
+    .appendChild(ele);
 });

@@ -1,40 +1,45 @@
 import React from 'react';
-import CommonHead from "./component/CommonHead.jsx";
-import Candidate from "./module/Candidate.jsx";
-import Editor from "./module/Editor.jsx";
-import Enterprise from "./module/Enterprise.jsx";
-import Interviewer from "./module/Interviewer.jsx";
-// import { Router, Route, hashHistory } from 'react-router';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+
+import Loading from './Loading.jsx';
+import Loadable from 'react-loadable';
+
+import (/* webpackChunkName: "rsuite.css" */
+'rsuite/dist/styles/rsuite.min.css');
+import (/* webpackChunkName: "lodash" */
+'lodash');
+
+function getComponet(incomponent) {
+  return Loadable({loader: incomponent, loading: Loading});
+}
+
 class Application extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    console.log(props, context);
+  }
 
   render() {
-    // return (
-    //   <Router history={ hashHistory }>
-    //     <Route path="/" component={ Enterprise } />
-    //   </Router>
-    //   );
     return (
       <div className="container-fluid">
-        <Candidate></Candidate>
+        <BrowserRouter basename='/#!/iw'>
+          <Switch>
+            <Route
+              path="/candidate"
+              component={getComponet(() => import (/* webpackChunkName: "candidate" */
+            "./module/Candidate.jsx"))}/>
+            <Route
+              path="/interviewer"
+              component={getComponet(() => import (/* webpackChunkName: "interviewer" */
+            "./module/Interviewer.jsx"))}/>
+            <Route
+              path="/enterprise"
+              component={getComponet(() => import (/* webpackChunkName: "enterprise" */
+            "./module/Enterprise.jsx"))}/>
+          </Switch>
+        </BrowserRouter>
       </div>
-      );
-      // return (
-      //   <div className="container-fluid">
-      //     <Interviewer></Interviewer>
-      //   </div>
-      //   );
-
-    return (
-      <div className="container-fluid">
-        <Enterprise></Enterprise>
-      </div>
-      );
-  // return (
-  //   <div className="container-fluid">
-  //     <CommonHead className="container"></CommonHead>
-  //     <Editor className="row container-fluid"></Editor>
-  //   </div>
-  //   );
+    );
   }
 }
 
