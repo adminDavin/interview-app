@@ -33,9 +33,9 @@ class BaseNavContent extends React.Component {
   render() {
     return (
       <div className='row'>
-        { this.state.child }
+        {this.state.child}
       </div>
-      );
+    );
   }
 }
 

@@ -1,5 +1,8 @@
 import React from 'react';
-import { Nav, Icon } from 'rsuite';
+import {Nav, Icon} from 'rsuite';
+
+import Loading from './../Loading.jsx';
+import Loadable from 'react-loadable';
 
 class BaseModule extends React.Component {
   constructor(props, context) {
@@ -16,10 +19,13 @@ class BaseModule extends React.Component {
       return false
     }
   }
+
   eventOnClickForNav(router) {
-    this.setState({
-      router: router
-    });
+    this.setState({router: router});
+  }
+
+  getComponet(incomponent) {
+    return Loadable({loader: incomponent, loading: Loading});
   }
 
   getNavs(navlist) {
@@ -33,12 +39,18 @@ class BaseModule extends React.Component {
         };
       }
       return (
-        <li key={ nav.name + index } className="nav-item">
-          <a className={ itemClassName } style={ itemStyle } onClick={ this.eventOnClickForNav.bind(this, nav.name) } href={ "#" + nav.name }>
-            { nav.title }
+        <li key={nav.name + index} className="nav-item">
+          <a
+            className={itemClassName}
+            style={itemStyle}
+            onClick={this
+            .eventOnClickForNav
+            .bind(this, nav.name)}
+            href={"#" + nav.name}>
+            {nav.title}
           </a>
         </li>
-        );
+      );
     });
     return navs;
   }
@@ -51,10 +63,18 @@ class BaseModule extends React.Component {
       }
 
       return (
-        <Nav.Item key={ nav.name + index } icon={ <Icon icon={ nav.icon } /> } active={ currentEle } onClick={ this.eventOnClickForNav.bind(this, nav.name) }>
-          { nav.title }
+        <Nav.Item
+          key={nav.name + index}
+          icon={< Icon icon = {
+          nav.icon
+        } />}
+          active={currentEle}
+          onClick={this
+          .eventOnClickForNav
+          .bind(this, nav.name)}>
+          {nav.title}
         </Nav.Item>
-        );
+      );
     });
     return navs;
   }

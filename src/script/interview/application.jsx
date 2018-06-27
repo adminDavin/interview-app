@@ -6,8 +6,6 @@ import Loadable from 'react-loadable';
 
 import (/* webpackChunkName: "rsuite.css" */
 'rsuite/dist/styles/rsuite.min.css');
-import (/* webpackChunkName: "lodash" */
-'lodash');
 
 function getComponet(incomponent) {
   return Loadable({loader: incomponent, loading: Loading});
@@ -16,7 +14,6 @@ function getComponet(incomponent) {
 class Application extends React.Component {
   constructor(props, context) {
     super(props, context);
-    console.log(props, context);
   }
 
   render() {

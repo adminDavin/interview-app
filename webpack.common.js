@@ -52,6 +52,7 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
+      _: "lodash",
       jQuery: "jquery",
       "window.jQuery": "jquery",
       Tether: "tether",
