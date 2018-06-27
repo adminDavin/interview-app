@@ -1,182 +1,120 @@
 import React from 'react';
-import { Table, Checkbox, Whisper, IconButton, Icon, Divider } from 'rsuite';
-require('bootstrap-loader');
-const {Column, HeaderCell, Cell, Pagination} = Table;
-import { Button, SelectPicker, ButtonToolbar, Paragraph, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'rsuite';
-import BaseLargeModal from "./../base-component/BaseLargeModal.jsx";
+import {Table} from 'rsuite';
 
-const selectData = [
+import cellFamily from "./../base-component/cellFamily.jsx";
+import fack from './../fackData.js';
+import temp from './../template/common.jsx';
+import DetailForOnQuestion from './DetailForOnQuestion.jsx';
+
+const rowKey = 'id';
+const ExpandCell = cellFamily.getExpandCell(rowKey);
+const fakeData = fack.data;
+const {Column, HeaderCell, Cell, Pagination} = Table;
+const nomalColumn = [
   {
-    label: 'Eugenia',
-    value: 'Eugenia',
-    role: 'Master'
+    width: 130,
+    title: "问题名称",
+    name: 'lastName'
   }, {
-    label: 'Kariane',
-    value: 'Kariane',
-    role: 'Master'
+    width: 130,
+    title: "问题类型",
+    name: 'lastName'
   }, {
-    label: 'Louisa',
-    value: 'Louisa',
-    role: 'Master'
+    width: 130,
+    title: "问题描述",
+    name: 'firstName'
+  }, {
+    width: 70,
+    title: "状态",
+    name: 'city'
+  }, {
+    width: 200,
+    title: "修改时间",
+    name: 'companyName'
+  }, {
+    width: 200,
+    title: "创建时间",
+    name: 'street'
   }
 ];
 
-
-const fakeData = [{
-  id: 1,
-  avartar: 'https://s3.amazonaws.com/uifaces/faces/twitter/justinrob/128.jpg',
-  city: 'New Amieshire',
-  email: 'Leora13@yahoo.com',
-  firstName: 'Ernest Schuppe SchuppeSchuppeSchuppeSchuppeSchuppeSchuppe Schuppe',
-  lastName: 'Schuppe',
-  street: 'Ratke Port',
-  zipCode: '17026-3154',
-  date: '2016-09-23T07:57:40.195Z',
-  bs: 'global drive functionalities',
-  catchPhrase: 'Intuitive impactful software',
-  companyName: 'Lebsack - Nicolas',
-  words: 'saepe et omnis',
-  sentence: 'Quos aut sunt id nihil qui.',
-  stars: 820,
-  followers: 70
-}];
-
-const ActionCell = ({rowData, dataKey, ...props}) => {
-  function handleAction() {
-    alert(`id:${rowData[dataKey]}`);
-  }
-  return (
-    <Cell {...props} className="link-group">
-      <DetailModal rowData={ rowData }></DetailModal>
-    </Cell>
-    );
+const fdata = {
+  name: "问题描述",
+  describe: "Some quick example text to build on the card title and make up the bulk of the c" +
+      "ard's content.",
+  evaluate: '答题评价',
+  evaContent: '未评价'
 };
-
-
 
 class CodingTesting extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      data: fakeData
+      data: fakeData,
+      expandedRowKeys: []
     };
+
+    this.handleExpanded = this
+      .handleExpanded
+      .bind(this);
   }
 
-  render() {
+  handleExpanded(rowData, dataKey) {
+    const {expandedRowKeys} = this.state;
+
+    let open = false;
+    const nextExpandedRowKeys = [];
+
+    expandedRowKeys.forEach(key => {
+      if (key === rowData[rowKey]) {
+        open = true;
+      } else {
+        nextExpandedRowKeys.push(key);
+      }
+    });
+
+    if (!open) {
+      nextExpandedRowKeys.push(rowData[rowKey]);
+    }
+    this.setState({expandedRowKeys: nextExpandedRowKeys});
+  }
+
+  getExpandedContent(rowData) {
+    let data = fdata;
     return (
-      <div className="w-r100" style={ { margin: 15 } }>
-        <div className="w-r100 text-left">
-          <CreateDemandModal className="col-auto"></CreateDemandModal>
+      <div className='card border-light mb-3'>
+        {temp.cellExtendContent(data)}
+        <div className="card-footer text-center">
+          <DetailForOnQuestion rowData={rowData}></DetailForOnQuestion>
         </div>
-        <Table className="w-r100" height={ 550 } data={ this.state.data }>
-          <Column width={ 70 } align="center" fixed>
-            <HeaderCell>Id</HeaderCell>
-            <Cell dataKey="id" />
-          </Column>
-          <Column width={ 200 } fixed>
-            <HeaderCell>岗位名称</HeaderCell>
-            <Cell dataKey="firstName" />
-          </Column>
-          <Column width={ 200 }>
-            <HeaderCell>需求人数</HeaderCell>
-            <Cell dataKey="lastName" />
-          </Column>
-          <Column width={ 200 }>
-            <HeaderCell>需求部门</HeaderCell>
-            <Cell dataKey="city" />
-          </Column>
-          <Column width={ 200 }>
-            <HeaderCell>更新时间</HeaderCell>
-            <Cell dataKey="street" />
-          </Column>
-          <Column width={ 300 }>
-            <HeaderCell>查看详情</HeaderCell>
-            <ActionCell dataKey="companyName" />
-          </Column>
-        </Table>
       </div>
-      );
+    );
   }
-}
 
-
-class DetailModal extends BaseLargeModal {
-  constructor(props) {
-    super(props);
-  }
-  modalContent() {
-    let data = this.props.rowData;
-    return (
-      <div className='card' style={ { padding: 10 } }>
-        <Form layout="inline" formValue={ data }>
-          <FormGroup>
-            <ControlLabel>岗位需求ID:</ControlLabel>
-            <Divider vertical />
-            <FormControl name="id" readOnly/>
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>岗位名称:</ControlLabel>
-            <Divider vertical />
-            <FormControl name="firstName" readOnly/>
-          </FormGroup>
-        </Form>
-        <Form layout="inline" formValue={ data }>
-          <FormGroup>
-            <ControlLabel>所属部门:</ControlLabel>
-            <Divider vertical />
-            <FormControl name="firstName" readOnly/>
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>发布人</ControlLabel>
-            <Divider vertical />
-            <FormControl name='city' readOnly/>
-          </FormGroup>
-        </Form>
-        <Form layout="inline" formValue={ data }>
-          <FormGroup>
-            <ControlLabel>需求人数:</ControlLabel>
-            <Divider vertical />
-            <FormControl name="date" readOnly/>
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>上一次更新时间:</ControlLabel>
-            <Divider vertical />
-            <FormControl name="date" readOnly/>
-          </FormGroup>
-        </Form>
-        <hr style={ { marginTop: 0 } } />
-        <Form fluid formValue={ data }>
-          <FormGroup>
-            <ControlLabel>岗位说明:</ControlLabel>
-            <FormControl rows={ 10 } name="firstName" componentClass="textarea" />
-          </FormGroup>
-        </Form>
-      </div>
-      );
-  }
   render() {
+    const {expandedRowKeys, data} = this.state;
     return (
-      <div className="modal-container">
-        <ButtonToolbar>
-          <Button appearance="primary" onClick={ this.open }>查看详情</Button>
-        </ButtonToolbar>
-        { this.comRender("查看详情", this.modalContent()) }
-      </div>
-      );
-  }
-}
+      <Table
+        height={450}
+        data={data}
+        rowKey={rowKey}
+        expandedRowKeys={expandedRowKeys}
+        rowExpandedHeight={300}
+        renderRowExpanded={rowData => this.getExpandedContent(rowData)}>
 
+        <Column width={70} align="center">
+          <HeaderCell>#</HeaderCell>
+          <ExpandCell
+            dataKey="id"
+            expandedRowKeys={expandedRowKeys}
+            onChange={this.handleExpanded}/>
+        </Column>
 
-class CreateDemandModal extends DetailModal {
-  render() {
-    return (
-      <div className="modal-container">
-        <ButtonToolbar>
-          <Button appearance="primary" onClick={ this.open }>添加岗位需求</Button>
-        </ButtonToolbar>
-        { this.comRender("添加岗位需求", this.modalContent()) }
-      </div>
-      );
+        {nomalColumn.map((col, index) => {
+          return cellFamily.commonCell(col, index);
+        })}
+      </Table>
+    );
   }
 }
 export default CodingTesting;

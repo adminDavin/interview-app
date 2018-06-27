@@ -8,41 +8,47 @@ class Candidate extends BaseModule {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      router: 'demond-massage1',
-      navContent: (<div/>)
+      router: 'demond-massage',
+      navContent: PageNotFound
     };
   }
   componentDidMount() {
     this.eventOnClickForNav(this.props.location.pathname.split('/')[2]);
   }
   eventOnClickForNav(navName) {
+    console.log(this.props);
+    console.log(navName)
+    if (navName == null) {
+      navName = this.state.router;
+    }
     this
       .props
       .history
-      .push(navName);
+      .push(this.props.match.path + "/" + navName);
     this.getNavContent(eleFindInArray(NAVLIST, 'name', navName));
   }
 
   getNavContent(router) {
-    let Element = (
-      <div>Not found</div>
-    );
-    if (router == 'DemondMassage') {
-      Element = this.getComponet(() => import (/* webpackChunkName: "demondMassage" */
-      "./../component/DemondMassage.jsx"));
-    } else if (router == 'CandidateMessage') {
-      Element = this.getComponet(() => import (/* webpackChunkName: "candidateMessage" */
-      "./../component/CandidateMessage.jsx"));
-    } else if (router == 'CandidateResume') {
-      Element = this.getComponet(() => import (/* webpackChunkName: "candidateResume" */
-      "./../component/CandidateResume.jsx"));
-    } else if (router == 'CodingTesting') {
-      Element = this.getComponet(() => import (/* webpackChunkName: "codingTesting" */
-      "./../component/CodingTesting.jsx"));
+    let element = PageNotFound;
+    if (router == null) {
+      this.setState({navContent: element});
+    } else {
+      if (router == 'DemondMassage') {
+        element = this.getComponet(() => import (/* webpackChunkName: "demondMassage" */
+        "./../component/DemondMassage.jsx"));
+      } else if (router == 'CandidateMessage') {
+        element = this.getComponet(() => import (/* webpackChunkName: "candidateMessage" */
+        "./../component/CandidateMessage.jsx"));
+      } else if (router == 'CandidateResume') {
+        element = this.getComponet(() => import (/* webpackChunkName: "candidateResume" */
+        "./../component/CandidateResume.jsx"));
+      } else if (router == 'CodingTesting') {
+        element = this.getComponet(() => import (/* webpackChunkName: "codingTesting" */
+        "./../component/CodingTesting.jsx"));
+      }
+      this.setState({navContent: element, router: router});
     }
-    this.setState({navContent: (
-        <Element></Element>
-      )});
+
   }
 
   getHeader() {
@@ -95,6 +101,7 @@ class Candidate extends BaseModule {
   }
 
   render() {
+    let NavContent = this.state.navContent;
     return (
       <div className="p-15">
         {this.getHeader()}
@@ -106,11 +113,17 @@ class Candidate extends BaseModule {
             <Nav appearance="subtle">
               {this.getRsuiteNavs(NAVLIST)}
             </Nav>
-            {this.state.navContent}
+            <NavContent props={this.props}/>
           </div>
         </div>
       </div>
     );
+  }
+}
+
+class PageNotFound extends React.Component {
+  render() {
+    return <div>page not found</div>
   }
 }
 
