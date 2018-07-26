@@ -4,14 +4,16 @@ import {split as SplitEditor} from 'react-ace';
 import 'brace/mode/java';
 
 // Import a Theme (okadia, github, xcode etc)
-import 'brace/theme/xcode';
+import 'brace/theme/monokai';
 
 class SplitEditorCom extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        
-        this.onChange = this.onChange.bind(this);
+
+        this.onChange = this
+            .onChange
+            .bind(this);
     }
 
     onChange(newValue) {
@@ -23,13 +25,14 @@ class SplitEditorCom extends React.Component {
             <div>
                 <SplitEditor
                     mode="java"
-                    theme="xcode"
+                    theme="monokai"
                     splits={1}
                     orientation="beside"
                     value={['hi']}
                     name="UNIQUE_ID_OF_DIV"
-                    editorProps={{$blockScrolling: true}}
-                />
+                    editorProps={{
+                    $blockScrolling: true
+                }}/>
             </div>
         );
     }

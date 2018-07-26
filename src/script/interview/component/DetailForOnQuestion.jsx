@@ -28,13 +28,10 @@ class DetailForOnQuestion extends BaseLargeModal {
     modalContent() {
         console.log(this.props.rowData);
         let data = this.props.rowData;
+        console.log(data);
         return (
             <div className='card'>
-                <Panel header={< h3 > Panel title < /h3>} bordered>
-                    <Paragraph/>
-                </Panel>
                 <AceEditorCom></AceEditorCom>
-
             </div>
         );
     }

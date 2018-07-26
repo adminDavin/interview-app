@@ -33,6 +33,14 @@ class Application extends React.Component {
               path="/enterprise"
               component={getComponet(() => import (/* webpackChunkName: "enterprise" */
             "./module/Enterprise.jsx"))}/>
+            <Route
+              path="/question-editor"
+              component={getComponet(() => import (/* webpackChunkName: "questionEditor" */
+            "./module/QuestionEditor.jsx"))}/>
+            <Route
+              path="/design-drawner"
+              component={getComponet(() => import (/* webpackChunkName: "designDrawner" */
+            "./module/DesignDrawner.jsx"))}/>
           </Switch>
         </BrowserRouter>
       </div>
