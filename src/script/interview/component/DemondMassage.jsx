@@ -87,10 +87,7 @@ class DemondMassage extends React.Component {
       <div className="w-r100" style={{
         margin: 15
       }}>
-        <div className="w-r100 text-left">
-          <CreateDemandModal className="col-auto"></CreateDemandModal>
-        </div>
-        <Table className="w-r100" height={550} data={this.state.data}>
+        <Table className="w-r100 m-r-10" height={500} data={this.state.data}>
           <Column width={70} align="center" fixed>
             <HeaderCell>Id</HeaderCell>
             <Cell dataKey="id"/>
@@ -116,6 +113,9 @@ class DemondMassage extends React.Component {
             <ActionCell dataKey="companyName"/>
           </Column>
         </Table>
+        <div className="w-r100 text-left">
+          <CreateDemandModal className="col-auto"></CreateDemandModal>
+        </div>
       </div>
     );
   }

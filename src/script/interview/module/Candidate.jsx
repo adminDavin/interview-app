@@ -106,7 +106,7 @@ class Candidate extends BaseModule {
       <div className="p-15">
         {this.getHeader()}
         <div className="row">
-          <div className="col-3">
+          <div className="col-1">
             {this.getLeft()}
           </div>
           <div className="col alert alert-light">
